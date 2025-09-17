@@ -1,12 +1,40 @@
-import React, { useState, useEffect } from "react";
-// الكود الكامل للسحب والإفلات + النقاط + لوحة الترتيب + المؤقت
-// يمكنك تخصيص الأسئلة هنا
-const DragDropQuiz = () => {
+import React, { useState } from "react";
+
+interface Question {
+  id: number;
+  text: string;
+  options: string[];
+  answer: string;
+}
+
+const DragDropQuiz: React.FC = () => {
+  const [score, setScore] = useState(0);
+
+  const questions: Question[] = [
+    {
+      id: 1,
+      text: "مثال سؤال",
+      options: ["أ", "ب", "ج", "د"],
+      answer: "أ"
+    }
+  ];
+
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100">
-      <h1 className="text-3xl font-bold mb-4">🎯 اختبار السحب والإفلات</h1>
-      <p className="text-gray-700">هذه نسخة جاهزة، أضف أسئلتك في هذا المكون.</p>
+    <div>
+      <h1>Drag & Drop Quiz</h1>
+      {questions.map((q) => (
+        <div key={q.id}>
+          <p>{q.text}</p>
+          <ul>
+            {q.options.map((opt, idx) => (
+              <li key={idx}>{opt}</li>
+            ))}
+          </ul>
+        </div>
+      ))}
+      <p>Score: {score}</p>
     </div>
   );
 };
+
 export default DragDropQuiz;
