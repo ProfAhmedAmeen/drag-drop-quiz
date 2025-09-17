@@ -1,11 +1,8 @@
 // src/firebaseConfig.ts
-
-// ✅ استيراد المكتبات الأساسية من Firebase
 import { initializeApp } from "firebase/app";
-import { getAnalytics, isSupported } from "firebase/analytics";
+import { getAnalytics } from "firebase/analytics";
 import { getFirestore } from "firebase/firestore";
 
-// ✅ بيانات مشروعك من Firebase Console
 const firebaseConfig = {
   apiKey: "AIzaSyBhRK9RJ7013-Au1X8_h0d1tuNwX2EQBGA",
   authDomain: "test-ukf.firebaseapp.com",
@@ -16,18 +13,9 @@ const firebaseConfig = {
   measurementId: "G-J62FGQV9C9"
 };
 
-// ✅ تهيئة Firebase
+// Initialize Firebase
 const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
 
-// ✅ تهيئة Firestore (لاستخدامه لتخزين النتائج ولوحة الترتيب)
-export const db = getFirestore(app);
+export { app, analytics, db };
 
-// ✅ تهيئة Analytics فقط إذا كان مدعومًا (لتجنب مشاكل SSR أو المتصفحات التي لا تدعمها)
-let analytics: any = null;
-isSupported().then((yes) => {
-  if (yes) {
-    analytics = getAnalytics(app);
-  }
-});
-
-export default app;
